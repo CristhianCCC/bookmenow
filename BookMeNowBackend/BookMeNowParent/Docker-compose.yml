@@ -1,0 +1,96 @@
+version: '3.9'
+
+services:
+  # eureka service -----------------------------------------------------------------------------------------------------
+  registry-discovery:
+    container_name: bookmenow-eureka
+    image: bookmenowbackend/bookmenowparent/microservice-docker-eureka:0.0.1-SNAPSHOT
+    ports:
+      - "8761:8761"
+    environment:
+      - JAVA_OPTS=-Xms256M -Xmx256M
+    networks:
+      - bookmenow-network
+
+  # spring admin -------------------------------------------------------------------------------------------------------
+  spring-admin:
+    container_name: bookmenow-springbootadmin
+    image: bookmenowbackend/bookmenowparent/microservice-docker-springbootadmin:0.0.1-SNAPSHOT
+    ports:
+      - "8082:8082"
+    environment:
+      - JAVA_OPTS=-Xms256M -Xmx256M -DEUREKA_SERVER=http://registry-discovery:8761/eureka/
+    depends_on:
+      - registry-discovery
+    networks:
+      - bookmenow-network
+
+  # api gateway --------------------------------------------------------------------------------------------------------
+  api-gateway:
+    container_name: bookmenow-gateway
+    image: bookmenowbackend/bookmenowparent/microservice-docker-gateway:0.0.1-SNAPSHOT
+    ports:
+      - "8095:8095"
+    environment:
+      - JAVA_OPTS=-Xms256M -Xmx256M -DEUREKA_SERVER=http://registry-discovery:8761/eureka/
+    depends_on:
+      - registry-discovery
+    networks:
+      - bookmenow-network
+
+  # mysql --------------------------------------------------------------------------------------------------------------
+  mysql-db:
+    container_name: bookmenow-mysql
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: bookmenow
+      MYSQL_USER: bookmenowadmin
+      MYSQL_PASSWORD: bookmenowpassword
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - bookmenow-network
+
+  # user microservice --------------------------------------------------------------------------------------------------
+  user:
+    container_name: bookmenow-user
+    image: bookmenowbackend/bookmenowparent/microservice-docker-user:0.0.1-SNAPSHOT
+    #ports:
+      #- "8060:8060"
+    environment:
+      - JAVA_OPTS=-Xms256M -Xmx256M -DEUREKA_SERVER=http://registry-discovery:8761/eureka/
+    depends_on:
+      #- mysql-user-db
+      - registry-discovery
+    networks:
+      - bookmenow-network
+#user db, it most be at the same level as the service
+  #mysql-user-db:
+    #container_name: mysql-user-db
+    #image: mysql:8.0
+    #ports:
+      #- "3307:3306" # cambia puerto externo para que no choque con otras instancias
+    #environment:
+      #MYSQL_ROOT_PASSWORD: root
+      #MYSQL_DATABASE: userdb
+      #MYSQL_USER: useradmin
+      #MYSQL_PASSWORD: userpassword
+    #volumes:
+      #- mysql_user_data:/var/lib/mysql
+    #networks:
+      #- bookmenow-network
+
+# volumes and networks -------------------------------------------------------------------------------------------------
+volumes:
+  mysql_data:
+
+networks:
+  bookmenow-network:
+
+
+
+#to run the compose docker compose -f "C:\Users\Janus\Desktop\BookMeNow\BookMeNowBackend\BookMeNowParent\Docker-compose.yml" up -d --force-recreate
+#before to do that, it must be compiled with these commands mvn clean package spring-boot:repackage and then mvn clean package dockerfile:build make a dir to target folder and copy the snapshot
