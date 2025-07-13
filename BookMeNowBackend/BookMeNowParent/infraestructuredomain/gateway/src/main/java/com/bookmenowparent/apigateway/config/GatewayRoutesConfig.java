@@ -15,9 +15,9 @@ public class GatewayRoutesConfig {
     public RouteLocator myRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 //route for service-------------------------------------------------------------------------------------
-                .route("service-service", r -> r
-                        .path("/service/**")
-                        .uri("http://localhost:8061")
+                .route("catalog-service", r -> r
+                        .path("/catalogs/**")
+                        .uri("lb://catalog")
                 )
                 //route for booking-------------------------------------------------------------------------------------
                 .route("booking-service", r -> r

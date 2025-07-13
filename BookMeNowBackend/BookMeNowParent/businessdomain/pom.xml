@@ -80,5 +80,6 @@
     <modules>
         <!-- Submodules of businessdomain -->
         <module>user</module>
+        <module>catalog</module>
     </modules>
 </project>

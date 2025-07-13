@@ -1,15 +1,12 @@
 package com.businessdomain.user.model;
-
-
 import com.businessdomain.user.model.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "hte_user")
@@ -48,8 +45,7 @@ public class User {
         this.name = name;
         this.password = password;
         this.role = role;
-        this.updatedAt = updatedAt;
-    }
+        this.updatedAt = updatedAt;}
 
     public User () {}
 

@@ -9,6 +9,15 @@
 		<artifactId>businessdomain</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
+
+
+	<groupId>com.businessdomain.user</groupId>
+	<artifactId>user</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>user</name>
+	<description>user microservice</description>
+
+
 	<dependencies>
 		<!-- JWT -->
 		<dependency>
@@ -42,13 +51,8 @@
 			<scope>test</scope>
 		</dependency>
 
-	</dependencies>
+    </dependencies>
 
-	<groupId>com.businessdomain.user</groupId>
-	<artifactId>user</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>user</name>
-	<description>user microservice</description>
 
 
 </project>

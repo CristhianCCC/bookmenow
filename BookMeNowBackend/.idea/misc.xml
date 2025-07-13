@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/BookMeNowParent/infraestructuredomain/springbootadmin/pom.xml" />
         <option value="$PROJECT_DIR$/BookMeNowParent/businessdomain/user/pom.xml" />
         <option value="$PROJECT_DIR$/BookMeNowParent/springsecurity/pom.xml" />
+        <option value="$PROJECT_DIR$/BookMeNowParent/businessdomain/catalog/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

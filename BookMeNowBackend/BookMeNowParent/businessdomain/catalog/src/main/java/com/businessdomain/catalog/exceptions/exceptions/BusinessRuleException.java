@@ -1,34 +1,29 @@
-package com.businessdomain.user.exceptions.exceptions;
-
-import org.springframework.http.HttpStatus;
+package com.businessdomain.catalog.exceptions.exceptions;
 
 //business exceptions runtimeExceptions instead of Exceptions to avoid the use of try catch that Exceptions needs to implement
 
-public class BusinessRuleException extends RuntimeException{
+import org.springframework.http.HttpStatus;
 
-    //adding attributes considered as necessary
+public class BusinessRuleException extends RuntimeException {
+
+    //adding the attributes considered as necessary
     private Long id;
     private String code;
     private HttpStatus httpStatus;
 
+
     //adding constructors considered as necessary
-    public BusinessRuleException(Long id, String code, HttpStatus httpStatus, String message) {
-        super(message);
+    public BusinessRuleException(Long id, String code, HttpStatus httpStatus){
         this.id = id;
         this.code = code;
         this.httpStatus = httpStatus;
     }
 
-    public BusinessRuleException(String message, Throwable cause){
-        super (message, cause);
-    }
+    public BusinessRuleException (String message, Throwable cause){super (message, cause);}
 
-    public BusinessRuleException(String code, String message, HttpStatus httpStatus) {
-    }
+    public BusinessRuleException(String message){}
 
-    public BusinessRuleException(String Message) {
-    }
-
+    //getters and setters
     public String getCode() {
         return code;
     }
